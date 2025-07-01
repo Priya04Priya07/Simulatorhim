@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Secret Love Letter 💌</title>
+  <style>
+ body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background: #fff0f5;
+      overflow-x: hidden;
+    }
+    .scene {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding-top: 50px;
+    }
+    .bird {
+      font-size: 60px;
+      position: absolute;
+      top: 100px;
+      left: -100px;
+      z-index: 50;
+      animation: flyAcross 6s ease-out forwards;
+    }
+    @keyframes flyAcross {
+      0% { left: -100px; top: 100px; }
+      50% { left: 50%; top: 80px; }
+      100% { left: 100vw; top: 100px; }
+    }
+    .speech {
+      margin-top: 70px;
+      font-size: 20px;
+      background: #fff;
+      border-radius: 10px;
+      padding: 10px 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      animation: showSpeech 6s ease-out forwards;
+      opacity: 0;
+    }
+    @keyframes showSpeech {
+      0% { opacity: 0; }
+      80% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    .envelope-container.drop {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .envelope-container {
+      position: relative;
+      transition: top 1s ease-in-out;
+      cursor: pointer;
+    }
+    .envelope {
+      position: relative;
+      width: 320px;
+      height: 200px;
+      background: #f06292;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+    .lock-heart {
+      position: absolute;
+      top: 70px;
+      left: 125px;
+      font-size: 45px;
+      z-index: 5;
+      transition: transform 0.6s ease, opacity 0.6s ease;
+    }
+    .lock-heart.unlock {
+      animation: heartUnlock 1.5s ease forwards;
+    }
+    @keyframes heartUnlock {
+      0% { transform: scale(1) rotate(0); opacity: 1; }
+      50% { transform: scale(1.2) rotate(30deg); }
+      100% { transform: scale(0) rotate(90deg); opacity: 0; }
+    }
+    .flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 50%;
+      background: #ec407a;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transform-origin: top;
+      transition: transform 0.6s ease;
+    }
+    .letter {
+      position: relative;
+      top: 300px;
+      left: 50%;
+      transform: translate(-50%, 100%);
+      width: 720px;
+      background: #fffdf9;
+      padding: 50px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      transition: transform 1s ease, opacity 1s ease;
+      overflow-y: auto;
+      font-family: 'Georgia', serif;
+      z-index: 5;
+      border: 10px solid transparent;
+      border-image: url('https://i.imgur.com/dR4HqKL.png') 30 round;
+    }
+    .envelope-container.open .flap {
+      transform: rotateX(180deg);
+    }
+    .envelope-container.open .letter {
+      transform: translate(-50%, -500px);
+      opacity: 1;
+    }
+    .letter-stickers img {
+      position: absolute;
+      opacity: 0.9;
+      z-index: 1;
+    }
+    .sticker-envelope {
+      top: 5px;
+      left: 30px;
+      width: 60px;
+      transform: rotate(-5deg);
+    }
+    .sticker-bike {
+      top: 5px;
+      right: 30px;
+      width: 110px;
+      transform: rotate(8deg);
+    }
+    .sticker-rose {
+      bottom: 115px;
+      right: 30px;
+      width: 80px;
+      transform: rotate(-10deg);
+    }
+    .sticker-couple {
+      bottom: 115px;
+      left: 30px;
+      width: 130px;
+      transform: rotate(5deg);
+    }
+    .photo-wrapper {
+      display: flex;
+      justify-content: space-evenly;
+      margin-top: 40px;
+      gap: 20px;
+    }
+    .polaroid {
+      width: 130px;
+      background: #fff;
+      border: 2px solid #e91e63;
+      padding: 5px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      text-align: center;
+      font-size: 12px;
+      font-family: 'Courier New', monospace;
+      color: #b23a48;
+    }
+    .polaroid img {
+      width: 100%;
+      height: auto;
+      border-radius: 2px;
+    }
+    @media (max-width: 768px) {
+      .letter {
+        width: 95%;
+        padding: 25px;
+      }
+      .photo-wrapper {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="scene">
+    <div class="bird">🕊️</div>
+    <div class="speech" id="speechBubble">Comrade, comrade! Your mine sent you a letter! 💌</div>
+
+    <div class="envelope-container" id="envelope">
+      <div class="envelope" id="envelopeBox">
+        <div class="lock-heart" id="heart">❤️</div>
+        <div class="flap"></div>
+        <div class="letter" id="letter">
+          <div class="letter-stickers">
+            <img src="images/envelope.png" class="sticker-envelope" alt="Envelope Sticker" />
+            <img src="images/Bike.png" class="sticker-bike" alt="Bike Sticker" />
+            <img src="images/Rose.png" class="sticker-rose" alt="Rose Sticker" />
+            <img src="images/couple.png" class="sticker-couple" alt="Couple Sticker" />
+          </div>
+          <h2 style="text-align: center; font-family: 'Brush Script MT', cursive; color: #b23a48;">Happy 1st Love Anniversary ❤️</h2>
+          <p style="line-height: 1.8;">
+            Oru varusham aagiduchu and all i can say is, this one year with you is a blessing. We’ve seen so many moments together  sandhosham, sandaigal, sirippu, azhugai but in the end, love thaan athigama aachu.<br>
+            Un smile paatha odane, ennoda heart calm aagidum. That smile it still melts me every time. I love your smile da nijama.<br>
+            This one year, we were happy but we also fought a lot. Naa unna kaaga neraya azhuthirukan nee ennala azhutha neramum irukku. But still, eppavume nee enakaga adjust panni iruka. Un patience, un understanding  its something I never want to lose.<br>
+            Sila edathula unakku en mela kovam vandhurukum, and I know nee adha kaamichathum illa. Nee ennala neriya unnecessary ah face panniiruka, hurt panniirukan. But even then, nee adjust pannitu, nee thangitu en kooda irundha. And that means everything to me.<br>
+            Unakku irukura kavala ellam enna nalla paathukanumnu thaan. You care me so much that even your anger came with love. Unna na varthaiyala neraya hurt panniyirupen, still you stood by me.<br>
+            Once you told me na unoda lucky but the truth is, nee thaan enoda lucky, enoda strength, enoda weakness. When you say I’m your happiness, I know that you are always mine. Always.<br>
+            With you, na naan ah iruken. En childishness, en kovam, en mood swings i show everything only to you. Ethavathu nadandha, unna kitta sollra varaikum thookam varadhu.<br>
+            Mukkiyama, un photo paakama thookamae pudikadhe. ❤<br>
+            Words neraya iruku but one thing I’ll always say from my heart:<br>
+            <strong style="color: #b23a48; font-size: 18px;">I love you… forever and ever.</strong><br>
+            Let’s celebrate many more anniversaries like this.<br>
+            Thanks for choosing me, for holding me, for loving me.
+          </p>
+          <p style="text-align: right; font-weight: bold; margin-top: 20px;">
+            With all my love,<br>
+            <span style="font-family: 'Brush Script MT', cursive; font-size: 22px; color: #b23a48;">Ur laddu/kappa ❤️</span>
+          </p>
+          <p style="font-family: 'Brush Script MT', cursive; font-size: 20px; color: #8b2e4c; margin-top: 60px; text-align: center;">
+            “You hold the pen that writes my favorite story.” ✍️💗
+          </p>
+          <div class="photo-wrapper">
+            <div class="polaroid" style="transform: rotate(-4deg);">
+              <img src="images/us.jpg" alt="Us Photo">
+              <span>us 💑</span>
+            </div>
+            <div class="polaroid" style="transform: rotate(4deg);">
+              <img src="images/together.jpg" alt="Together Photo">
+              <span>together 💗</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const envelope = document.getElementById("envelope");
+    const heart = document.getElementById("heart");
+    const speechBubble = document.getElementById("speechBubble");
+
+    envelope.addEventListener("click", () => {
+      if (!envelope.classList.contains("open")) {
+        const pwd = prompt("🔐 Enter the secret code:");
+        if (pwd === "0514") {
+          heart.classList.add("unlock");
+          setTimeout(() => {
+            envelope.classList.add("open");
+            speechBubble.classList.add("hide");
+          }, 1500);
+        } else {
+          alert("❌ Incorrect! Try something that combines us ❤️");
+        }
+      }
+    });
+  </script>
+</body>
+</html>
